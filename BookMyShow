@@ -1,0 +1,147 @@
+CREATE DATABASE BookMyShow;
+
+USE BookMyShow;
+
+CREATE TABLE Users
+(
+    User_Id INT PRIMARY KEY,
+    User_Name VARCHAR(100) NOT NULL,
+    Phone_No BIGINT NOT NULL,
+    Email VARCHAR(100),
+    Age INT
+);
+
+INSERT INTO Users VALUES
+(251,'Arjun',9876543210,'arjun@gmail.com',22),
+(262,'Sneha',9123456780,'sneha@gmail.com',21),
+(365,'Rahul',9988776655,'rahul@gmail.com',25),
+(469,'Priya',9012345678,'priya@gmail.com',28),
+(536,'Varun',9345678901,'varun@gmail.com',24),
+(656,'Anjali',8765432109,'anjali@gmail.com',20),
+(786,'Rohit',7894561230,'rohit@gmail.com',30),
+(823,'Kavya',9871234560,'kavya@gmail.com',23),
+(239,'Sanjay',9123456701,'sanjay@gmail.com',35),
+(109,'Divya',9988771234,'divya@gmail.com',27);
+
+CREATE TABLE Movies
+(
+    Movie_Id INT PRIMARY KEY,
+    Movie_Name VARCHAR(100) NOT NULL,
+    Duration INT,
+    Language VARCHAR(30),
+    Genre VARCHAR(30),
+    Rating DECIMAL(3,1)
+);
+
+INSERT INTO Movies VALUES
+(101,'Devara',178,'Telugu','Action',8.2),
+(102,'Pushpa 2',200,'Telugu','Action',8.5),
+(103,'Leo',164,'Tamil','Thriller',8.1),
+(104,'Jawan',169,'Hindi','Action',7.8),
+(105,'12th Fail',147,'Hindi','Drama',9.0),
+(106,'Kantara',148,'Kannada','Drama',8.6),
+(107,'Hi Nanna',155,'Telugu','Romance',8.3),
+(108,'Premalu',156,'Malayalam','Comedy',8.0),
+(109,'Manjummel Boys',135,'Malayalam','Adventure',8.7),
+(110,'Fighter',166,'Hindi','Action',7.6);
+
+
+CREATE TABLE Theaters
+(
+    Theater_Id INT PRIMARY KEY,
+    Theater_Name VARCHAR(100) NOT NULL,
+    City VARCHAR(50),
+    Total_Screens INT,
+    Contact_Number BIGINT
+);
+
+INSERT INTO Theaters VALUES
+(201,'INOX Cinemas','Hyderabad',6,9876501234),
+(202,'PVR Cinemas','Bengaluru',8,9123405678),
+(203,'Cinepolis','Chennai',5,9988701234),
+(204,'AMB Cinemas','Hyderabad',7,9012304567),
+(205,'PVR Icon','Mumbai',6,9345607891),
+(206,'Asian Cinemas','Vijayawada',4,8765401239),
+(207,'Sathyam Cinemas','Chennai',5,7894506123),
+(208,'Cine Square','Pune',4,9871203456),
+(209,'Raghavendra Theatre','Kurnool',3,9123406785),
+(210,'Prasads Multiplex','Hyderabad',5,9987601234);
+
+
+CREATE TABLE Seats
+(
+    Seat_Id INT PRIMARY KEY,
+    Theater_Id INT,
+    Screen_Number INT,
+    Seat_Number VARCHAR(10),
+    Seat_Type VARCHAR(20),
+    Price DECIMAL(8,2),
+    FOREIGN KEY (Theater_Id) REFERENCES Theaters(Theater_Id)
+);
+
+INSERT INTO Seats VALUES
+(601,201,1,'A1','Premium',250.00),
+(602,201,1,'A2','Premium',250.00),
+(603,202,2,'B1','Regular',180.00),
+(604,202,2,'B2','Regular',180.00),
+(605,203,1,'C1','Premium',220.00),
+(606,203,1,'C2','Premium',220.00),
+(607,204,3,'D1','Regular',200.00),
+(608,204,3,'D2','Regular',200.00),
+(609,205,2,'E1','VIP',300.00),
+(610,205,2,'E2','VIP',300.00);
+
+
+CREATE TABLE Events
+(
+    Event_Id INT PRIMARY KEY,
+    Event_Name VARCHAR(100),
+    Event_Type VARCHAR(50),
+    Event_Date DATE,
+    Location VARCHAR(100),
+    Ticket_Price DECIMAL(8,2)
+);
+
+INSERT INTO Events VALUES
+(701,'Sunburn Music Festival','Music','2026-09-15','Hyderabad',1500.00),
+(702,'Comedy Night','Comedy','2026-09-20','Bengaluru',800.00),
+(703,'Dance Championship','Dance','2026-09-25','Chennai',600.00),
+(704,'Food Festival','Food','2026-10-01','Mumbai',500.00),
+(705,'Standup Special','Comedy','2026-10-05','Pune',750.00),
+(706,'Rock Concert','Music','2026-10-10','Hyderabad',1800.00),
+(707,'Art Exhibition','Art','2026-10-15','Delhi',400.00),
+(708,'College Fest','Festival','2026-10-20','Vijayawada',300.00),
+(709,'DJ Night','Music','2026-10-25','Bengaluru',1000.00),
+(710,'Drama Show','Drama','2026-11-01','Chennai',700.00);
+
+CREATE TABLE Payment
+(
+    Payment_Id INT PRIMARY KEY,
+    Booking_Id INT,
+    Payment_Method VARCHAR(30),
+    Amount DECIMAL(10,2),
+    Payment_Date DATE,
+    Payment_Status VARCHAR(20),
+    FOREIGN KEY (Booking_Id) REFERENCES Bookings(Booking_Id)
+);
+drop table payment;
+INSERT INTO Payment VALUES
+(501,401,'UPI',360.00,'2026-08-08','Success'),
+(502,402,'Debit Card',660.00,'2026-08-08','Success'),
+(503,403,'Credit Card',400.00,'2026-08-09','Success'),
+(504,404,'UPI',1000.00,'2026-08-09','Success'),
+(505,405,'Cash',160.00,'2026-08-09','Success'),
+(506,406,'UPI',360.00,'2026-08-09','Refunded'),
+(507,407,'Debit Card',570.00,'2026-08-09','Success'),
+(508,408,'UPI',340.00,'2026-08-09','Success'),
+(509,409,'Credit Card',750.00,'2026-08-09','Success'),
+(510,410,'UPI',460.00,'2026-08-09','Pending');
+
+
+SHOW TABLES;
+
+SELECT * FROM Users;
+SELECT * FROM Movies;
+SELECT * FROM Theaters;
+SELECT * FROM Seats;
+SELECT * FROM Events;
